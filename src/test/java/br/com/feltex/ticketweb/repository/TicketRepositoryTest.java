@@ -25,7 +25,7 @@ class TicketRepositoryTest {
     }
 
     @Test
-    @DisplayName("Realizar todas as operacaoes de um CRUD de usuário")
+    @DisplayName("Realizar todas as operacões de um CRUD de usuário")
     void crud() {
         var usuario = new Usuario();
         usuario.setNome("Jose");
