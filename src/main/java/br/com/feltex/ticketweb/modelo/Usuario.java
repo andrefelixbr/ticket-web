@@ -3,15 +3,12 @@ package br.com.feltex.ticketweb.modelo;
 
 import br.com.feltex.ticketweb.constants.enums.Perfil;
 import br.com.feltex.ticketweb.constants.enums.StatusUsuario;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
+@Data
 @RequiredArgsConstructor
 @Entity
 public class Usuario {
@@ -30,16 +27,4 @@ public class Usuario {
     @Column(nullable = false)
     private StatusUsuario status;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Usuario usuario = (Usuario) o;
-        return id != null && Objects.equals(id, usuario.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
