@@ -2,8 +2,9 @@
 
 ## Execute testes
 
- `mvn test`
+Maven:  `mvn test`
  
+Gradle: `./gradlew test`
 
 ## Q&A
 

@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'jacoco'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repository.primefaces.org')
+    }
+
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.4'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.4'
+    implementation 'com.sun.faces:jsf-api:2.2.20'
+    implementation 'com.sun.faces:jsf-impl:2.2.20'
+    implementation 'org.primefaces:primefaces:11.0.0'
+    implementation 'org.primefaces.themes:all-themes:1.0.10'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.65'
+    implementation 'javax.servlet:jstl:1.2'
+    implementation 'org.primefaces.extensions:primefaces-extensions:11.0.6'
+    implementation 'javax.enterprise:cdi-api:2.0.SP1'
+    implementation 'org.apache.poi:poi:5.2.2'
+    implementation 'com.lowagie:itext:2.1.7'
+    implementation 'org.apache.xmlbeans:xmlbeans:5.0.3'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.4'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    //implementation 'org.jacoco:jacoco-maven-plugin:0.8.8'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.7.4'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.4'
+}
+
+group = 'br.com.feltex'
+version = '0.0.1-SNAPSHOT'
+description = 'ticket-web'
+java.sourceCompatibility = JavaVersion.VERSION_17
+
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+    // reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
